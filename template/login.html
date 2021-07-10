@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block styleblock %}
+
+<style>
+    .form_div {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+{% endblock %}
+
+{% block bodyblock %}
+
+<div class="form_div">
+    <form action="login" method="POST">
+    {% csrf_token %}
+        
+        <input type="text" placeholder="Enter Username" name="username" required>
+        <br>
+        <input type="password" placeholder="Enter Password" name="password" required>
+        <br>
+        <br>
+        <input type="submit" value="SignIn" name="signin">
+
+    </form>
+</div>
+
+{% endblock bodyblock %}

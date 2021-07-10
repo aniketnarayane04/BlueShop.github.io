@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block styleblock %}
+
+<style>
+    .form_div {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+{% endblock %}
+
+{% block bodyblock %}
+
+<div class="form_div">
+    <form action="register" method="POST">
+    {% csrf_token %}
+        <input type="text" placeholder="First Name" name="fname" required>
+        <br>
+        <input type="text" placeholder="Last Name" name="lname" required>
+        <br>
+        <input type="text" placeholder="Username" name="username" required>
+        <br>
+        <input type="password" placeholder="Password" name="password" required>
+        <br>
+        <input type="password" placeholder="Confirm Password" name="c_password" required>
+        <br>
+        <input type="submit" value="Register" name="register">
+        <br>
+        <a href="login">
+            <button type="button" class="btn btn-dark" onclick="login">Login</button>
+        </a>
+    </form>
+</div>
+
+{% endblock bodyblock %}

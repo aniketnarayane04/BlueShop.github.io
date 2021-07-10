@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "..\\mainapp"
+		},
+		{
+			"path": "..\\media"
+		},
+		{
+			"path": "..\\media_ori"
+		},
+		{
+			"path": "..\\mobilesmall"
+		},
+		{
+			"path": "..\\static"
+		},
+		{
+			"path": "."
+		}
+	]
+}

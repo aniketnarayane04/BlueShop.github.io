@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block styleblock %} 
+
+  <style>
+  * {
+    font-family: 'Open Sans';
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+  .offers-div1 {
+    background-color: white;
+    position: relative;
+    border-radius: 10px;
+
+  }
+
+  .img_topdesc {
+    width: 100%;
+    background-color: #fdffbc;
+    border-radius: 10px 10px 0 0;
+    font-weight: semibold;
+    font-size: small;
+  }
+
+  .img_desc {
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    border-radius: 0 0 10px 10px;
+    width: 100%;
+
+    border: 1 black solid;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+  }
+
+  .primary_img {
+    position: relative;
+    border-radius: 10px;
+
+  }
+
+  #home_nav {
+    font-weight: bold;
+    color: blue;
+  }
+
+  #home_li {
+    border-bottom: 1 blue solid;
+  }
+
+  #explore_nav {
+    font-weight: bold;
+    color: black;
+  }
+
+  .img_desc1 {
+    width: 100%;
+    background-color: white;
+    position: relative;
+    bottom: 0;
+    border-radius: 0 0 10px 10px;
+    width: 100%;
+
+    border: 1 black solid;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+  }
+
+  #column_brand {
+    box-shadow: 0.5px 0.5px 0.5px 0.5px black;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .brand_element {
+    width: 20%;
+  }
+
+  .shadow {
+    box-shadow: 1px 1px 1px 1px 1px black;
+  }
+
+  footer {
+    background-color: black;
+    color: white;
+    margin-bottom: 0;
+  }
+</style>
+{% endblock %}
+
+{% block bodyblock %}
+<!-- nav bar -->
+<nav class="navbar navbar-expand-lg navbar-light ">
+  <div class="container-fluid">
+
+    <a class="navbar-brand" href="#">
+      <p style="font-size:32px;color:#265Ae7;font-weight:Bold;">
+        BlueShop.com
+      </p>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active"  aria-current="page"
+            href="/">Home </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="explore">Store </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="#">About us</a>
+        </li>
+      </ul>
+
+      <form class="d-flex col-md-6 col-xl-5 ms-auto me-auto" action="{% url 'explore-all'%}" method="POST">
+        {% csrf_token %}
+        <input class="form-control" type="search" style="border-radius:5px" placeholder="Search..."
+          aria-label="Search" name="search" />
+        <button class="btn btn-outline-primary" style="border-radius:5px" type="submit">
+          Search
+        </button>
+      </form>
+
+      <ul class="navbar-nav mb-lg-0 ms-auto me-auto">
+      
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="{% url 'explore-all' %}">Hello, {{user.first_name}}</a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="logout">
+            <button type="button" class="btn btn-primary" style="border-radius:5px" >Log Out</button>
+          </a>
+        </li>
+
+        {% else %}
+        <li class="nav-item">
+          <a href="login">
+            <button type="button" class="btn btn-primary" style="border-radius:5px" >Log In</button>
+          </a>
+        </li>
+
+        <li class="nav-item mx-2">
+          <a href="register">
+            <button type="button" class="btn btn-primary" style="border-radius:5px" >register</button>
+          </a>
+        </li>
+        {% endif %}
+
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="{% url 'orders' %}">Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="{% url 'cart' %}">Cart</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+    <div class="mx-5 my-3">
+        <h5>Your Orders</h5>
+    </div>
+
+    <div class="row" >
+  
+       <div class="col-lg-7 my-1" style=" min-height: 100vh;">
+            {% for i in item %}
+            <div class="row  p-3 shadow mx-5" style="border-radius:10px; padding:10px; margin-bottom:10px;border:1px #e5e5e5 solid;">
+                  <p style="width: 100%;color:black;margin:0;color:green;font-size:large; font-weight:semibold ;margin-left:50px;margin-bottom:10px;">&#x26AC Your order will be shipped tommorow.</p>
+                <div class="col-lg-4 text-center">
+                    <img src="{{i.img1.url}}" alt="" height="200px">
+                </div>
+
+                <div class="col-lg-5" >
+                     <p style="width: 100%;color:black;margin:0;font-size:large; font-weight:semibold">{{i.mbl_name}}</p>
+           <h5 style="margin-top:0px"><span style="padding-bottom:0px; padding-top:0px ; font-size: small;" class="btn btn-success">{{i.rating}} &#9734;</span>
+            <p style="width: 100%;color:#707070;margin-top:5px;margin-bottom:2px;font-size:medium;font-weight:semibold">{{i.desc}}</p>
+          
+            <p style="width: 100%;color:black;margin:2px;font-size:large;font-weight:semibold">₹{{i.price}}</p>
+                    <div class="row">
+                        <div class="col-lg-6"><button type="button" class="btn btn-light shadow" style="width: 100%;">Quantity</button>
+                        </div>
+                        <div class="col-lg-6"><button type="button" class="btn btn-danger shadow" style="width: 100%;">Remove</button></div>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+  
+    </div>
+{% endblock %}

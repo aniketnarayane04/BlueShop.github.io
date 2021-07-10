@@ -1,0 +1,292 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block styleblock %}
+
+<style>
+  * {
+    font-family:'Open Sans';
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+      footer {
+          background-color: black;
+          color: white;
+          margin-bottom: 0;
+      }
+
+      #explore_nav {
+          font-weight: bold;
+          color: blue;
+        }
+      
+        #explore_li {
+          border-bottom: 1 blue solid;
+      
+        }
+      
+        #side-left {
+          height: 100vh;
+        }
+      
+        #side-right {
+          background-color: white;
+         min-height: 100vh;
+        }
+      
+        .forms {
+          background-color: white;
+          padding: 10px;
+          box-shadow: 1px 1px 1px 1px 1px black;
+          border-radius: 10px;
+        }
+      
+        .shadow {
+          box-shadow: 1px 1px 1px 1px 1px black;
+        }
+      
+        section {
+          margin-left: 10px;
+        }
+      
+        .offers-div1 {
+          background-color: white;
+          position: relative;
+          border-radius: 10px;
+          
+        }
+      
+        .img_desc {
+          width: 100%;
+          background-color: white;
+          position: relative;
+          bottom: 0;
+          border-radius: 0 0 10px 10px;
+          width: 100%;
+          font-size: small;
+          border:1 black solid;
+        padding-left:10px;
+        padding-top:10px;
+          text-align: left;
+        }
+
+        .img {
+width: 400px;
+height: auto;
+}
+      
+        .primary_img {
+          position: relative;
+          border-radius: 10px;
+        }
+  </style>
+{% endblock %}
+
+{% block bodyblock %}
+
+
+
+<!-- home and explore all
+<ul class="nav nav-tabs mb-2">
+  <li class="nav-item" id="home_li">
+    <a class="nav-link active" href="{% url 'index' %}">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#" id="explore_nav" target="_self">Explore All</a>
+  </li>
+</ul> -->
+
+<!-- nav bar -->
+<nav class="navbar navbar-expand-lg navbar-light ">
+  <div class="container-fluid">
+
+    <a class="navbar-brand" href="#">
+      <p style="font-size:32px;color:#265Ae7;font-weight:Bold;">
+        BlueShop.com
+      </p>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active"  aria-current="page"
+            href="/">Home </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " style="border-bottom: 5px solid #047cea;" aria-current="page" href="explore">Store </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="#">About us</a>
+        </li>
+      </ul>
+
+      <form class="d-flex col-md-6 col-xl-5 ms-auto me-auto" action="{% url 'explore-all'%}" method="POST">
+        {% csrf_token %}
+        <input class="form-control" type="search" style="border-radius:5px" placeholder="Search..."
+          aria-label="Search" name="search" />
+        <button class="btn btn-outline-primary" style="border-radius:5px" type="submit">
+          Search
+        </button>
+      </form>
+
+      <ul class="navbar-nav mb-lg-0 ms-auto me-auto">
+      
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="{% url 'explore-all' %}">Hello, {{user.first_name}}</a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="logout">
+            <button type="button" class="btn btn-primary" style="border-radius:5px" >Log Out</button>
+          </a>
+        </li>
+
+        {% else %}
+        <li class="nav-item">
+          <a href="login">
+            <button type="button" class="btn btn-primary" style="border-radius:5px" >Log In</button>
+          </a>
+        </li>
+
+        <li class="nav-item mx-2">
+          <a href="register">
+            <button type="button" class="btn btn-primary" style="border-radius:5px" >register</button>
+          </a>
+        </li>
+        {% endif %}
+
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="{% url 'orders' %}">Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="{% url 'cart' %}">Cart</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+<!-- main content -->
+<div class="main-div row" >
+<aside class="col-lg-3" id="side-left">
+
+
+  <section class="m-4">
+  <p style="padding-left:10px;margin-bottom:2px;">Sort By</p>
+    <div class="shadow" style="border-radius:10px; padding-left:7px;border:1px #e5e5e5 solid;">
+    <form action="{% url 'explore-all'%}" class="forms" method="POST">
+      {% csrf_token %}
+      <input type="radio" name="sort" value="ascending"><label for="">&nbsp; Ascending</label> 
+      <br>
+      <input type="radio" name="sort" value="descending"><label for="">&nbsp; Descending</label>
+      <br>
+      <input type="submit" value="Apply"  class="btn btn-light " style="margin-top:10px" name="sub-sort" id="sub-sort">
+    </form>
+  </div>
+  </section>
+
+  <section class="m-4">
+    <p style="padding-left:10px;margin-bottom:2px;">Price</p>
+    <div class="shadow" style="border-radius:10px; padding-left:7px;border:1px #e5e5e5 solid;">
+      <form action="{% url 'explore-all'%}" class="forms" method="POST">
+        {% csrf_token %}
+      <input type="radio" name="price" value="zero-ten"><label for="">&nbsp; ₹0 - ₹10,000</label> 
+      <br>
+      <input type="radio" name="price" value="ten-twenty"><label for="">&nbsp; ₹10,000 - ₹20,000</label>
+      <br>
+      <input type="radio" name="price" value="twenty-plus"><label for="">&nbsp; ₹20,000+</label>
+      <br>
+      <input type="submit" value="Apply"  class="btn btn-light " style="margin-top:10px" name="sub-price" id="sub-price">
+    </form>
+    </div>
+  </section>
+
+  <section class="m-3">
+    <p style="padding-left:10px;margin-bottom:2px;">Brands</p>
+    <div class="shadow" style="border-radius:10px; padding-left:7px;border:1px #e5e5e5 solid;">
+      <form action="{% url 'explore-all'%}" class="forms" method="POST">
+        {% csrf_token %}
+      <input type="radio" name="brands" value="xiaomi"><label for="">&nbsp; Xiaomi</label> 
+      <br>
+      <input type="radio" name="brands" value="samsung"><label for="">&nbsp; Samsung</label>
+      <br>
+      <input type="radio" name="brands" value="apple"><label for="">&nbsp; Apple</label>
+      <br>
+      <input type="radio" name="brands" value="oneplus"><label for="">&nbsp; Oneplus</label>
+      <br>
+      <input type="radio" name="brands" value="realme"><label for="">&nbsp; Realme</label>
+      <br>
+      <input type="submit"  value="Apply"  class="btn btn-light " style="margin-top:10px" name="sub-brands" id="sub-brands">
+    </form>
+    </div>
+
+  
+  </section>
+
+  <section class="m-3">
+    <p style="padding-left:10px;margin-bottom:2px;">Customer Ratings</p>
+    <div class="shadow" style="border-radius:10px; padding-left:7px;border:1px #e5e5e5 solid;">
+      <form action="{% url 'explore-all'%}" class="forms" method="POST">
+        {% csrf_token %}
+      <input type="radio" name="rating" value="four"><label for="">&nbsp; 4.0+</label> 
+      <br>
+      <input type="radio" name="rating" value="t-f"><label for="">&nbsp; 3.0 - 4.0</label>
+      <br>
+      <input type="radio" name="rating" value="t-t"><label for="">&nbsp; 2.0 - 3.0</label>
+      <br>
+      <input type="radio" name="rating" value="two"><label for="">&nbsp; 2.0 and below</label>
+      <br>
+      <input type="submit" value="Apply"  class="btn btn-light " style="margin-top:10px" name="sub-rating" id="sub-rating">
+    </form>
+    </div>
+
+  
+  </section>
+
+</aside>
+
+<div class="col-lg-9 my-4" id="side-right">
+  
+  <p class="ms-4">Results</p>
+
+  <div class="container mx-1" >
+    <div class="row">
+      
+      {% for i in all_m %}
+        <div class="col-lg-3 text-center offers-div1 ">
+          <a href="{% url 'product' i.id %}" >
+          <div class="primary_img py-3 my-2 shadow" style="border:1px #eeeeee solid;">
+            <img src="{{i.img1.url}}" alt="" height="200px">
+            <div class="img_desc">
+              <p style="width: 100%;color:black;margin:0;font-size:medium; font-weight:semibold">{{ i.mbl_name }}</p>
+          
+<h5 style="margin-top:0px"><span style="padding-bottom:0px; padding-top:0px ; font-size: small;" class="btn btn-success">{{i.rating}} &#9734;</span>
+     
+            <p style="width: 100%;color:black;margin:0;font-size:medium;font-weight:semibold">₹{{ i.price }}</p>
+            </div>
+          </div>
+          </a>
+        </div>
+        {% endfor %}
+      
+        
+    </div>
+  </div>
+</div>
+</div>
+
+
+{% endblock %}
+

@@ -1,0 +1,71 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    background-color: black;
+}
+
+#home_nav {
+    font-weight: bold;
+    color: blue;
+}
+
+#home_li {
+    border-bottom: 1 blue solid;
+}
+
+#explore_nav {
+    font-weight: bold;
+    color: black;
+}
+
+.primary_img {
+    position:relative;
+    box-shadow: 1.5px 1.5px 1.5px 1.5px black;
+}
+
+.img_desc {
+    position: absolute;
+    bottom: 0;
+    background-color: white;
+}
+
+#column_brand {
+    box-shadow: 0.5px 0.5px 0.5px 0.5px black;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.brand_element {
+    width: 20%;
+}
+
+.offers-div1 {
+    background-color: black;
+    position: relative;
+    border-radius: 10px;
+}
+
+.img_topdesc {
+    background-color: rgba(190, 100, 183, 0.952);
+    border-radius: 10px 10px 0 0;
+    font-weight: bold;
+    font-size: small;
+}
+
+.img_desc {
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    border-radius: 0 0 10px 10px;
+    width: 100%;
+    font-weight: bold;
+    font-size: small;
+}
+
+footer {
+    background-color: green;
+    color: white;
+    margin-bottom: 0;
+}
